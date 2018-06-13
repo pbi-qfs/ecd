@@ -53,11 +53,23 @@ _If you have currently the "Eclipse" Class Decompiler installed, it is recommend
 
 ## License
 
-The main plugin and most of the optional feature plugins are licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html)
+The main plugin and most of the optional feature plugins are licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html) (except the independent _org.sf.feeling.decompiler.jd_ project) and [GPL 3](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
 
-### org.sf.feeling.decompiler.jd
+Used libraries:
+  * Dr. Garbage Tools: Copyright (c) Dr. Garbage Ltd. & Co KG, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Apache commons: Copyright (c) Apache Software Foundation, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Fernflower: Copyright (c) JetBrains, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Minimal JSON: Copyright (c) 2013, 2014 EclipseSource, [MIT License](https://opensource.org/licenses/MIT)
+  * JSOUP: Copyright (c) 2009 - 2018 Jonathan Hedley, [MIT License](https://opensource.org/licenses/MIT)
+  * CFR: Copyright Leee Benfield, [MIT License](https://opensource.org/licenses/MIT)
+  * Procyon: Copyright Mike Strobel, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Netbeans CVSClient: Copyright (c) NetBeans Community, [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html) and [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Maven SCM: Copyright (c) Apache Software Foundation, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Nexus Indexer: [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * Nexus Restlet1x Model: [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html)
+  * Plexus Utils: Copyright The Codehaus Foundation, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  * JAD: Copyright 1997-2001 Pavel Kouznetsov, Free for non-commercial use
 
-The optional and independent _org.sf.feeling.decompiler.jd_ project and its used libraries are licensed under the [GPL 3](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
 
 ## Contributors
 
