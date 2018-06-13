@@ -54,9 +54,9 @@ _Primary Source: http://jsoup.org/_
 ### CFR
 _Primary Source: http://www.benf.org/other/cfr/_
 
-* `./org.sf.feeling.decompiler.cfr/lib/cfr_0_122.jar`
-  * SHA-256: 65c2dfb76c4904014092663b74c2ea4a8e2f18ca75e98a1e4e064352c618360f
-  * Equal to http://www.benf.org/other/cfr/cfr_0_122.jar
+* `./org.sf.feeling.decompiler.cfr/lib/cfr_0_130.jar`
+  * SHA-256: b66a1e59891a2585885b171b4ec6fcc0e20f0d419e90a153e5c01540bb1cc67f
+  * Equal to http://www.benf.org/other/cfr/cfr_0_130.jar
 
 ### Procyon
 _Primary Source: https://bitbucket.org/mstrobel/procyon/_

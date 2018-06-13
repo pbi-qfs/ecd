@@ -26,5 +26,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: ECD Project Team
 Export-Package: org.sf.feeling.decompiler.cfr.actions,
  org.sf.feeling.decompiler.cfr.decompiler
-Bundle-ClassPath: lib/cfr_0_122.jar,
+Bundle-ClassPath: lib/cfr_0_130.jar,
  .
