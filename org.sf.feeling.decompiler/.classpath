@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.5.jar" sourcepath="C:/Users/Feeling/AppData/Local/Temp/decompiler/source/commons-codec-1.5-sources-1495079853335.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/fernflower.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/fernflower-352.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/json.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsoup.jar" sourcepath="C:/Users/Feeling/AppData/Local/Temp/decompiler/source/jsoup-1.9.2-sources-1495082896849.jar"/>
 	<classpathentry kind="lib" path="lib/com.drgarbage.asm_5.0.3.jar"/>

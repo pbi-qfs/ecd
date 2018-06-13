@@ -10,13 +10,10 @@ package org.sf.feeling.decompiler.jd.decompiler;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jetbrains.java.decompiler.main.DecompilerContext;
-import org.jetbrains.java.decompiler.main.collectors.CounterContainer;
 import org.jetbrains.java.decompiler.struct.StructClass;
 import org.jetbrains.java.decompiler.struct.lazy.LazyLoader;
 import org.sf.feeling.decompiler.JavaDecompilerPlugin;
@@ -66,8 +63,6 @@ public class JDCoreDecompiler implements IDecompiler
 		{
 			if ( classPackage.length( ) == 0 )
 			{
-				DecompilerContext.initContext( new HashMap<String, Object>( ) );
-				DecompilerContext.setCounterContainer( new CounterContainer( ) );
 				StructClass structClass = new StructClass( FileUtil.getBytes( new File( root, className ) ),
 						true,
 						new LazyLoader( null ) );

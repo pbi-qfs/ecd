@@ -33,9 +33,10 @@ _Primary Source: https://commons.apache.org/downloads/index.html_
 
 ### Fernflower
 _Primary Source: https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine_
-* `./org.sf.feeling.decompiler/lib/fernflower.jar`
-  * SHA-256: 598321f62b394b01bfd0f2a14dc28ccca50704f64ac15a1cb18fb2613aec3763
-  * Version from http://central.maven.org/maven2/org/jboss/windup/decompiler/fernflower/fernflower/2.5.0.Final/fernflower-2.5.0.Final.jar
+_Build Source: https://github.com/MinecraftForge/FernFlower with builds at http://files.minecraftforge.net/maven/net/minecraftforge/fernflower/_
+* `./org.sf.feeling.decompiler/lib/fernflower-352.jar`
+  * SHA-256: 799e1e968613abdb74a61bebb08c49132cde5c6eb8d8e5c80a768bfb57a44785
+  * Version from http://files.minecraftforge.net/maven/net/minecraftforge/fernflower/352/fernflower-352.jar
 
 ### Minimal JSON
 _Primary Source: https://github.com/ralfstx/minimal-json_

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/commons-codec-1.5.jar,
- lib/fernflower.jar,
+ lib/fernflower-352.jar,
  lib/json.jar,
  lib/jsoup.jar,
  library.jar,

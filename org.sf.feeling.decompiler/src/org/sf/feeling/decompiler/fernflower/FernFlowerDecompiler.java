@@ -8,8 +8,10 @@
 
 package org.sf.feeling.decompiler.fernflower;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.PrintStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler;
+import org.jetbrains.java.decompiler.main.decompiler.PrintStreamLogger;
 import org.jetbrains.java.decompiler.main.extern.IFernflowerLogger;
 import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
 import org.sf.feeling.decompiler.JavaDecompilerPlugin;
@@ -34,6 +37,8 @@ public class FernFlowerDecompiler implements IDecompiler
 	private String source = ""; // $NON-NLS-1$ //$NON-NLS-1$
 	private long time, start;
 	private String log = ""; //$NON-NLS-1$
+	
+	ByteArrayOutputStream loggerStream;
 
 	/**
 	 * Performs a <code>Runtime.exec()</code> on jad executable with selected
@@ -50,9 +55,12 @@ public class FernFlowerDecompiler implements IDecompiler
 		start = System.currentTimeMillis( );
 		log = ""; //$NON-NLS-1$
 		source = ""; //$NON-NLS-1$
+
+		loggerStream = new ByteArrayOutputStream( );
+		
 		File workingDir = new File( root + "/" + packege ); //$NON-NLS-1$
 
-		Map<String, Object> mapOptions = new HashMap<String, Object>( );
+		final Map<String, Object> mapOptions = new HashMap<String, Object>( );
 
 		mapOptions.put( IFernflowerPreferences.REMOVE_SYNTHETIC, "1" ); //$NON-NLS-1$
 		mapOptions.put( IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1" ); //$NON-NLS-1$
@@ -66,13 +74,25 @@ public class FernFlowerDecompiler implements IDecompiler
 			mapOptions.put( IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1" ); //$NON-NLS-1$
 		}
 
-		File tmpDir = new File( System.getProperty( "java.io.tmpdir" ), //$NON-NLS-1$
+		final File tmpDir = new File( System.getProperty( "java.io.tmpdir" ), //$NON-NLS-1$
 				String.valueOf( System.currentTimeMillis( ) ) );
 
 		if ( !tmpDir.exists( ) )
 			tmpDir.mkdirs( );
 
-		ConsoleDecompiler decompiler = new ConsoleDecompiler( tmpDir, mapOptions );
+		// Work around protected constructor
+		class EmbeddedConsoleDecompiler extends ConsoleDecompiler {
+
+			protected EmbeddedConsoleDecompiler()
+			{
+				super( tmpDir, 
+					   mapOptions , 
+					   new PrintStreamLogger(new PrintStream( loggerStream )));
+			}
+			
+		}
+		ConsoleDecompiler decompiler = new EmbeddedConsoleDecompiler();
+		
 		File[] files = workingDir.listFiles( new FilenameFilter( ) {
 
 			@Override
@@ -87,7 +107,7 @@ public class FernFlowerDecompiler implements IDecompiler
 		{
 			for ( int j = 0; j < files.length; j++ )
 			{
-				decompiler.addSpace( files[j], true );
+				decompiler.addSource( files[j] );
 			}
 		}
 
@@ -172,6 +192,9 @@ public class FernFlowerDecompiler implements IDecompiler
 	@Override
 	public String getLog( )
 	{
+		if (loggerStream != null) {
+			return log + loggerStream.toString( );
+		}
 		return log;
 	}
 
