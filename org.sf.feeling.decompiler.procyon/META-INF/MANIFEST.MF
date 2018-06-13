@@ -26,5 +26,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: ECD Project Team
 Export-Package: org.sf.feeling.decompiler.procyon.actions,
  org.sf.feeling.decompiler.procyon.decompiler
-Bundle-ClassPath: lib/procyon.jar,
+Bundle-ClassPath: lib/procyon-decompiler-0.5.32.jar,
  .
