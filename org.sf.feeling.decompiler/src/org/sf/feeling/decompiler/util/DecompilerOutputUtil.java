@@ -289,7 +289,7 @@ public class DecompilerOutputUtil
 					}
 				}
 
-				if ( i > 1 )
+				if ( i > 0 )
 				{
 					realignOutput.append( "/* " //$NON-NLS-1$
 							+ getLineNumber( outputLineNumber, lineNumberWidth )
