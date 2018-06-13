@@ -104,7 +104,7 @@ _Primary Source: https://bitbucket.org/mstrobel/procyon/_
 ### JAD
 _Primary Source: http://www.javadecompilers.com/jad_
 
-* `./org.sf.feeling.decompiler.jad/bin/native/jad/linux/jad`
+* `./org.sf.feeling.decompiler.jad/src/native/jad/linux/jad`
   * SHA-256: 805527efac5b4f1d3982f20a8533142326cc397df1b2cf6012c12df91d4794f5
 * `./org.sf.feeling.decompiler.jad/src/native/jad/macos/jad`
   * SHA-256: f88436c49ed025f62f87754eba0b0190568d1efa5a38199f427f7ade4f5d037e
@@ -112,16 +112,11 @@ _Primary Source: http://www.javadecompilers.com/jad_
   * SHA-256: c5f43828592c7a47261b6baf89f13455423f9c528ed1b01e7148ba2475ed6126
 
 ## JD-Core
+_Primary Source: https://github.com/java-decompiler/jd-eclipse/releases_
 
-* `./org.sf.feeling.decompiler.jd/bin/native/jd-core/linux/x86/libjd-eclipse.so`
-* `./org.sf.feeling.decompiler.jd/src/native/jd-core/linux/x86/libjd-eclipse./org.sf.feeling.decompiler.jd/bin/native/jd-core/linux/x86_64/libjd-eclipse.so`
-* `./org.sf.feeling.decompiler.jd/src/native/jd-core/linux/x86_64/libjd-eclipse.so`
-.so
-* `./org.sf.feeling.decompiler.jd/bin/native/jd-core/win32/x86/jd-eclipse.dll`
-* `./org.sf.feeling.decompiler.jd/src/native/jd-core/win32/x86/jd-eclipse.dll`
-* `./org.sf.feeling.decompiler.jd/bin/native/jd-core/win32/x86_64/jd-eclipse.dll`
-* `./org.sf.feeling.decompiler.jd/src/native/jd-core/win32/x86_64/jd-eclipse.dll`
-* `./org.sf.feeling.decompiler.jd/bin/native/jd-core/macosx/x86/libjd-eclipse.jnilib`
-* `./org.sf.feeling.decompiler.jd/src/native/jd-core/macosx/x86/libjd-eclipse.jnilib`
-* `./org.sf.feeling.decompiler.jd/bin/native/jd-core/macosx/x86_64/libjd-eclipse.jnilib`
-* `./org.sf.feeling.decompiler.jd/src/native/jd-core/macosx/x86_64/libjd-eclipse.jnilib`
+* `./org.sf.feeling.decompiler.jd/lib/jd-common-0.7.1.jar`
+  * SHA-256: dfc8c400110b589b5347d6337aeea8d197539e9bc866789c319be6584688c41a
+* `./org.sf.feeling.decompiler.jd/lib/jd-common-ide-0.7.1.jar`
+  * SHA-256: 53a794093510ebb3c1411f1bf1acfb37616baea16ca11b1aa5cf5a0ec457856f
+* `./org.sf.feeling.decompiler.jd/lib/jd-core-0.7.1.jar`
+  * SHA-256: 4977fd2d30a42d54b197d0f80a21c623210e973dd0a781ba1dcbe2e59cf3d62a

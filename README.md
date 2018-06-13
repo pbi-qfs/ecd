@@ -41,9 +41,9 @@ _If you have currently the "Eclipse" Class Decompiler installed, it is recommend
   1. Clone this project
   1. Clone https://github.com/ecd-plugin/update next to this project
   1. Run mvn clean package
-  
+
   If you want to use Eclipse and help developing, continue like this:
-  
+
   4. Install _Eclipse for RCP and RAP Developers_
   3. Import all projects into Eclipse by selecting _File_ > _Import_ > _General_ > _Existing Projects into Workspace_ > _Next_ and enter the parent of the cloned directory as "root directory".
   4. Open the _org.sf.feeling.decompiler.updatesite_ project in the Package Explorer
@@ -53,7 +53,11 @@ _If you have currently the "Eclipse" Class Decompiler installed, it is recommend
 
 ## License
 
-The plugin is licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html)
+The main plugin and most of the optional feature plugins are licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html)
+
+### org.sf.feeling.decompiler.jd
+
+The optional and independent _org.sf.feeling.decompiler.jd_ project and its used libraries are licensed under the [GPL 3](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
 
 ## Contributors
 
@@ -67,7 +71,7 @@ The plugin is licensed under the [Eclipse Public License v1.0](http://www.eclips
 * Version 3.1.0
   * Updated Embedded Decompilers
     * CFR to version 0_130
-    
+
 * Version 3.0.0
   * Removed adware code fragments
   * Removed self-update feature (Eclipse handles updates fine)

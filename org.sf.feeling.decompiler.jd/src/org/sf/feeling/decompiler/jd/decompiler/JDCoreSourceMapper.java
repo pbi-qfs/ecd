@@ -8,14 +8,14 @@
 
 package org.sf.feeling.decompiler.jd.decompiler;
 
-import java.io.IOException;
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Path;
-import org.sf.feeling.decompiler.JavaDecompilerPlugin;
 
 import jd.ide.eclipse.editors.JDSourceMapper;
 
@@ -24,15 +24,7 @@ public class JDCoreSourceMapper extends JDSourceMapper
 
 	public JDCoreSourceMapper( )
 	{
-		super( new Path( "." ), "" ); //$NON-NLS-1$ //$NON-NLS-2$
-		try
-		{
-			loadLibrary( );
-		}
-		catch ( IOException e )
-		{
-			JavaDecompilerPlugin.logError( e, e.getMessage( ) );
-		}
+		super( new File("."), new Path( "." ), "", Collections.emptyMap() ); //$NON-NLS-1$ //$NON-NLS-2$
 		origionalDecompiler = new JDCoreDecompiler( this );
 	}
 

@@ -1,88 +1,122 @@
-/*******************************************************************************
- * Copyright (c) 2017 Chen Chao and other ECD project contributors.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+/*
+ * Copyright (c) 2008-2015 Emmanuel Dupuy
+ * This program is made available under the terms of the GPLv3 License.
+ */
 
 package jd.ide.eclipse.editors;
 
-import java.io.IOException;
-import java.net.URL;
+import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
 
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.sf.feeling.decompiler.JavaDecompilerPlugin;
 import org.sf.feeling.decompiler.editor.BaseDecompilerSourceMapper;
-import org.sf.feeling.decompiler.util.UIUtil;
 
+import jd.commonide.IdeDecompiler;
+import jd.commonide.preferences.IdePreferences;
+
+
+/**
+ * JDSourceMapper
+ * 
+ * @project Java Decompiler Eclipse Plugin
+ * @version 0.1.4
+ * @see     org.eclipse.jdt.internal.core.SourceMapper
+ */
+@SuppressWarnings("restriction")
 public abstract class JDSourceMapper extends BaseDecompilerSourceMapper
 {
+	private final static String JAVA_CLASS_SUFFIX         = ".class";
+	private final static String JAVA_SOURCE_SUFFIX        = ".java";
+	private final static int    JAVA_SOURCE_SUFFIX_LENGTH = 5;
 
-	protected final static String JAR_SUFFIX = ".jar"; //$NON-NLS-1$
-	protected final static String ZIP_SUFFIX = ".zip"; //$NON-NLS-1$
-	protected final static String JAVA_CLASS_SUFFIX = ".class"; //$NON-NLS-1$
-	protected final static String JAVA_SOURCE_SUFFIX = ".java"; //$NON-NLS-1$
-	protected final static int JAVA_SOURCE_SUFFIX_LENGTH = 5;
-	protected static boolean loaded = false;
-
-	public JDSourceMapper( IPath sourcePath, String rootPath )
-	{
-		super( sourcePath, rootPath );
+	private File basePath;
+	
+	@SuppressWarnings("rawtypes")
+	public JDSourceMapper(
+		File basePath, IPath sourcePath, String sourceRootPath, Map options) 
+	{	
+		super(sourcePath, sourceRootPath, options);
+		this.basePath = basePath;
 	}
-
-	public native String decompile( String baseName, String qualifiedName );
-
-	protected void loadLibrary( ) throws IOException
+	
+	@SuppressWarnings("rawtypes")
+	public char[] findSource(String javaSourcePath) 
 	{
-		if ( loaded == false )
+		char[] source = null;
+		
+		// Search source file
+		if (this.rootPaths == null)
 		{
-			System.load( getLibraryPath( ) );
-			loaded = true;
+			source = super.findSource(javaSourcePath);
 		}
-	}
+		else
+		{
+			Iterator iterator = this.rootPaths.iterator();
+			while (iterator.hasNext() && (source == null))
+			{
+				String sourcesRootPath = (String)iterator.next();				
+				source = super.findSource(
+					sourcesRootPath + IPath.SEPARATOR + javaSourcePath);
+			}
+		}
+		
+		if ((source == null) && javaSourcePath.endsWith(JAVA_SOURCE_SUFFIX))
+		{	
+			String classPath = javaSourcePath.substring(
+				0, javaSourcePath.length()-JAVA_SOURCE_SUFFIX_LENGTH) + JAVA_CLASS_SUFFIX;
+			
+			// Decompile class file
+			try
+			{
+				String result = decompile(this.basePath.getAbsolutePath(), classPath);
+				if (result != null)
+					source = result.toCharArray();
+			}
+			catch (Exception e)
+			{
+				JavaDecompilerPlugin.getDefault().getLog().log(new Status(
+					Status.ERROR, JavaDecompilerPlugin.PLUGIN_ID, 
+					0, e.getMessage(), e));
+			}
+		}
 
-	protected String getLibraryPath( ) throws IOException
-	{
-		URL pluginUrl = null;
-		if ( Platform.OS_WIN32.equalsIgnoreCase( Platform.getOS( ) ) )
-		{
-			if ( Platform.ARCH_X86_64.equalsIgnoreCase( Platform.getOSArch( ) ) )
-			{
-				pluginUrl = this.getClass( ).getResource( "/native/jd-core/win32/x86_64/jd-eclipse.dll" ); //$NON-NLS-1$
-			}
-			else
-			{
-				pluginUrl = this.getClass( ).getResource( "/native/jd-core/win32/x86/jd-eclipse.dll" ); //$NON-NLS-1$
-			}
-		}
-		else if ( Platform.OS_LINUX.equalsIgnoreCase( Platform.getOS( ) ) )
-		{
-			if ( Platform.ARCH_X86_64.equalsIgnoreCase( Platform.getOSArch( ) ) )
-			{
-				pluginUrl = this.getClass( ).getResource( "/native/jd-core/linux/x86_64/libjd-eclipse.so" ); //$NON-NLS-1$
-			}
-			else
-			{
-				pluginUrl = this.getClass( ).getResource( "/native/jd-core/linux/x86/libjd-eclipse.so" ); //$NON-NLS-1$
-			}
-		}
-		else if ( Platform.OS_MACOSX.equalsIgnoreCase( Platform.getOS( ) ) )
-		{
-			if ( Platform.ARCH_X86_64.equalsIgnoreCase( Platform.getOSArch( ) ) )
-			{
-				pluginUrl = this.getClass( ).getResource( "/native/jd-core/macosx/x86_64/libjd-eclipse.jnilib" ); //$NON-NLS-1$
-			}
-			else
-			{
-				pluginUrl = this.getClass( ).getResource( "/native/jd-core/macosx/x86/libjd-eclipse.jnilib" ); //$NON-NLS-1$
-			}
-		}
-		String path = FileLocator.toFileURL( pluginUrl ).getFile( );
-		if ( UIUtil.isWin32( ) && path != null && ( path.length( ) > 0 ) && ( path.charAt( 0 ) == '/' ) )
-			path = path.substring( 1 );
-
-		return path;
+		return source;
 	}
+		
+    /**
+     * @param basePath          Path to the root of the classpath, either a 
+     *                          path to a directory or a path to a jar file.
+     * @param internalClassName internal name of the class.
+     * @return Decompiled class text.
+     */
+	public String decompile(String basePath, String classPath) {
+		// Load preferences
+		IPreferenceStore store = JavaDecompilerPlugin.getDefault().getPreferenceStore();
+		
+		boolean showDefaultConstructor = false; //currently unused : store.getBoolean(JavaDecompilerPlugin.PREF_SHOW_DEFAULT_CONSTRUCTOR);
+		boolean realignmentLineNumber = store.getBoolean(JavaDecompilerPlugin.ALIGN);
+		boolean showPrefixThis = false; //currently unused : store.getBoolean(JavaDecompilerPlugin.PREF_OMIT_PREFIX_THIS);
+		boolean mergeEmptyLines = false;
+		boolean unicodeEscape = false; //currently unused :  store.getBoolean(JavaDecompilerPlugin.PREF_ESCAPE_UNICODE_CHARACTERS);
+		boolean showLineNumbers = store.getBoolean(JavaDecompilerPlugin.PREF_DISPLAY_LINE_NUMBERS);
+		boolean showMetadata = store.getBoolean(JavaDecompilerPlugin.PREF_DISPLAY_METADATA);
+		
+		// Create preferences
+		IdePreferences preferences = new IdePreferences(
+			showDefaultConstructor, realignmentLineNumber, showPrefixThis, 
+			mergeEmptyLines, unicodeEscape, showLineNumbers, showMetadata);
+		
+		// Decompile
+		return IdeDecompiler.decompile(preferences, basePath, classPath);
+	}
+	
+    /**
+     * @return version of JD-Core
+     * @since JD-Core 0.7.0
+     */
+    public static String getVersion() { return "0.7.1"; }
 }
