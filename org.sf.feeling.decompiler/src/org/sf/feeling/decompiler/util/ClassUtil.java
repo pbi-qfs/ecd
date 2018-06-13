@@ -88,7 +88,7 @@ public class ClassUtil
 		else
 		{
 			JavaDecompilerPlugin.logInfo( "Could not use " + decompiler.getClass( ).getSimpleName( ) 
-					+ " for decompilation since the classLevel + " + classLevel + " is not supported. "
+					+ " for decompilation since the classLevel " + classLevel + " is not supported. "
 					+ "Falling back to " + defaultDecompiler.getClass( ).getSimpleName( )  + ".");
 			return defaultDecompiler;
 		}
