@@ -64,6 +64,10 @@ The plugin is licensed under the [Eclipse Public License v1.0](http://www.eclips
 
 ## Changelog
 
+* Version 3.1.0
+  * Updated Embedded Decompilers
+    * CFR to version 0_130
+    
 * Version 3.0.0
   * Removed adware code fragments
   * Removed self-update feature (Eclipse handles updates fine)
