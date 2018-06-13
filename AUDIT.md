@@ -102,9 +102,17 @@ _Primary Source: https://bitbucket.org/mstrobel/procyon/_
 * `./org.sf.feeling.decompiler.source.attach/lib/plexus-utils-3.0.15.jar`
 
 ### JAD
+_Primary Source: http://www.javadecompilers.com/jad_
 
-* `./org.sf.feeling.decompiler.jad/bin/native/jad/win32/jad.exe`
+* `./org.sf.feeling.decompiler.jad/bin/native/jad/linux/jad`
+  * SHA-256: 805527efac5b4f1d3982f20a8533142326cc397df1b2cf6012c12df91d4794f5
+* `./org.sf.feeling.decompiler.jad/src/native/jad/macos/jad`
+  * SHA-256: f88436c49ed025f62f87754eba0b0190568d1efa5a38199f427f7ade4f5d037e
 * `./org.sf.feeling.decompiler.jad/src/native/jad/win32/jad.exe`
+  * SHA-256: c5f43828592c7a47261b6baf89f13455423f9c528ed1b01e7148ba2475ed6126
+
+## JD-Core
+
 * `./org.sf.feeling.decompiler.jd/bin/native/jd-core/linux/x86/libjd-eclipse.so`
 * `./org.sf.feeling.decompiler.jd/src/native/jd-core/linux/x86/libjd-eclipse./org.sf.feeling.decompiler.jd/bin/native/jd-core/linux/x86_64/libjd-eclipse.so`
 * `./org.sf.feeling.decompiler.jd/src/native/jd-core/linux/x86_64/libjd-eclipse.so`
