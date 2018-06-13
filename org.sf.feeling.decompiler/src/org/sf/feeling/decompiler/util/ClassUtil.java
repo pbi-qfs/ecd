@@ -58,19 +58,39 @@ public class ClassUtil
 	public static IDecompiler checkAvailableDecompiler( IDecompiler decompiler, InputStream is )
 	{
 		int classLevel = getLevel( is );
+		
+		boolean debug = isDebug( );
+		IDecompiler defaultDecompiler = getDefaultDecompiler( classLevel, debug );
+		
 		if ( decompiler.supportLevel( classLevel ) )
 		{
-			if ( isDebug( ) )
+			if ( debug )
 			{
 				if ( !decompiler.supportDebugLevel( classLevel ) )
 				{
-					return getDefaultDecompiler( classLevel, isDebug( ) );
+					String recommendation = "";
+					if (JavaDecompilerPlugin.getDefault( ).isDebug( )) {
+						recommendation += "Disable the 'Align code for debugging' option. ";
+					}
+					if (UIUtil.isDebugPerspective( )) {
+						recommendation += "Switch to the Java perspective. ";
+					}
+					if (JavaDecompilerPlugin.getDefault( ).isDebugMode( )) {
+						recommendation += "Disable the debug Mode. ";
+					}
+					JavaDecompilerPlugin.logInfo( "Could not use " + decompiler.getClass( ).getSimpleName( ) 
+							+ " for decompilation since the debug view is not supported. " + recommendation
+							+ "Falling back to " + defaultDecompiler.getClass( ).getSimpleName( ) + "." );
+					return defaultDecompiler;
 				}
 			}
 		}
 		else
 		{
-			return getDefaultDecompiler( classLevel, isDebug( ) );
+			JavaDecompilerPlugin.logInfo( "Could not use " + decompiler.getClass( ).getSimpleName( ) 
+					+ " for decompilation since the classLevel + " + classLevel + " is not supported. "
+					+ "Falling back to " + defaultDecompiler.getClass( ).getSimpleName( )  + ".");
+			return defaultDecompiler;
 		}
 		return decompiler;
 	}
