@@ -69,7 +69,7 @@ Used libraries:
   * Nexus Restlet1x Model: [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html)
   * Plexus Utils: Copyright The Codehaus Foundation, [Apache License V2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
   * JAD: Copyright 1997-2001 Pavel Kouznetsov, Free for non-commercial use
-
+  * JD-Core: Copyright Emmanuel Dupuy, [GPL 3](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
 
 ## Contributors
 

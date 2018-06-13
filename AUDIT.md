@@ -66,11 +66,11 @@ _Primary Source: https://bitbucket.org/mstrobel/procyon/_
   * `gradle fatJar` build of https://bitbucket.org/mstrobel/procyon/commits/12cbbdd9dc6fde6b5155de3e3aebde8ce3f85df4?at=develop
 
 ### Netbeans CVSClient
-
+_Primary Source: https://versioncontrol.netbeans.org/javacvs/library/_
 * `./org.sf.feeling.decompiler.source.attach/lib/cvsclient-20060125.jar`
 
-### Maven
-
+### Maven SCM
+_Primary Source: https://maven.apache.org/scm/_
 * `./org.sf.feeling.decompiler.source.attach/lib/maven-scm-api-1.9.4.jar`
 * `./org.sf.feeling.decompiler.source.attach/lib/maven-scm-provider-accurev-1.9.4.jar`
 * `./org.sf.feeling.decompiler.source.attach/lib/maven-scm-provider-bazaar-1.9.4.jar`
@@ -97,8 +97,8 @@ _Primary Source: https://bitbucket.org/mstrobel/procyon/_
 * `./org.sf.feeling.decompiler.source.attach/lib/nexus-indexer-lucene-model-2.9.2-01.jar`
 * `./org.sf.feeling.decompiler.source.attach/lib/nexus-restlet1x-model-2.9.2-01.jar`
 
-### Plexus
-
+### Plexus Utils
+Primary Source: _https://github.com/codehaus-plexus/plexus-utils_
 * `./org.sf.feeling.decompiler.source.attach/lib/plexus-utils-3.0.15.jar`
 
 ### JAD
