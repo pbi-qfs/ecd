@@ -9,6 +9,7 @@
 package org.sf.feeling.decompiler.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,15 +20,64 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.eclipse.jdt.internal.compiler.classfmt.ClassFormatException;
+import org.eclipse.jdt.internal.compiler.util.JRTUtil;
+
 public class JarClassExtractor
 {
 
 	/**
-	 * extracts class files from jar/zip archive to specified path. See
-	 * <code>IDecompiler</code> documentation for the format of pareameters.
+	 * extracts class files from jar/zip archive or modules to specified path.
+	 * See <code>IDecompiler</code> documentation for the format of pareameters.
 	 */
 	public static void extract( String archivePath, String packege, String className, boolean inner, String to )
 			throws IOException
+	{
+		if ( archivePath.endsWith( JRTUtil.JRT_FS_JAR ) )
+		{
+			extractClassFromJrt( archivePath, packege, className, to );
+		}
+		else
+		{
+			extractClassesFromJar( archivePath, packege, className, inner, to );
+		}
+	}
+
+	private static void extractClassFromJrt( String archivePath, String packege, String className, String to )
+			throws IOException, FileNotFoundException
+	{
+		File outputFile = new File( to + File.separatorChar + className );
+		try (FileOutputStream outputStream = new FileOutputStream( outputFile ))
+		{
+			File jrtPath = new File( archivePath );
+			List<String> modules = JRTUtil.getModulesDeclaringPackage( jrtPath, packege, null );
+			String moduleRelativePath = packege + "/" + className;
+			byte[] content = findModuleWithFile( jrtPath, modules, moduleRelativePath );
+			outputStream.write( content );
+		}
+		catch ( ClassFormatException e )
+		{
+			e.printStackTrace( );
+			throw new RuntimeException( "Unable to read JRT file", e );
+		}
+	}
+
+	private static byte[] findModuleWithFile( File jrtPath, List<String> modules, String moduleRelativeClassPath )
+			throws IOException, ClassFormatException
+	{
+		for ( String module : modules )
+		{
+			byte[] content = JRTUtil.getClassfileContent( jrtPath, moduleRelativeClassPath, module );
+			if ( content != null )
+			{
+				return content;
+			}
+		}
+		throw new RuntimeException( "No module in JRT contains class " + moduleRelativeClassPath );
+	}
+
+	private static void extractClassesFromJar( String archivePath, String packege, String className, boolean inner,
+			String to ) throws IOException, FileNotFoundException
 	{
 		ZipFile archive = new ZipFile( archivePath );
 		List entries = findRelevant( archive, packege, className, inner );
@@ -65,7 +115,6 @@ public class JarClassExtractor
 					out.close( );
 			}
 		}
-
 	}
 
 	private static List findRelevant( ZipFile archive, String packege, String className, boolean inner )
