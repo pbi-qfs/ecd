@@ -33,13 +33,26 @@ public class JarClassExtractor
 	public static void extract( String archivePath, String packege, String className, boolean inner, String to )
 			throws IOException
 	{
-		if ( archivePath.endsWith( JRTUtil.JRT_FS_JAR ) )
+		if ( isClassInJrt( archivePath ) )
 		{
 			extractClassFromJrt( archivePath, packege, className, to );
 		}
 		else
 		{
 			extractClassesFromJar( archivePath, packege, className, inner, to );
+		}
+	}
+
+	private static boolean isClassInJrt( String archivePath )
+	{
+		try
+		{
+			return archivePath.endsWith( JRTUtil.JRT_FS_JAR );
+		}
+		catch ( NoClassDefFoundError e )
+		{
+			// Compatible with pre-Oxygen Eclipse, where JRTUtil does not exist
+			return false;
 		}
 	}
 
@@ -57,7 +70,6 @@ public class JarClassExtractor
 		}
 		catch ( ClassFormatException e )
 		{
-			e.printStackTrace( );
 			throw new RuntimeException( "Unable to read JRT file", e );
 		}
 	}

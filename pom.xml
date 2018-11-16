@@ -103,9 +103,9 @@
 
 	<repositories>
 		<repository>
-			<id>eclipse-juno</id>
+			<id>eclipse-oxygen</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/juno</url>
+			<url>http://download.eclipse.org/releases/oxygen</url>
 		</repository>
 	</repositories>
 
